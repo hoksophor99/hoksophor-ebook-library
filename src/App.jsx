@@ -48,7 +48,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path="/" element={<EbookLibraryHero/>} />
 
         {/* auth */}
@@ -84,8 +83,7 @@ function App() {
             <Route path='/my_profile' element={<Profile/>} />
             <Route path="/reader" element={<Reader/>} />
 
-          </Route>
-          
+          </Route>  
       </Routes>
     </BrowserRouter>
 
