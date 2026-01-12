@@ -4,11 +4,14 @@ import { Search, ShoppingCart, Menu, X, BookOpen } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Profile_img from '../../assets/image/Profile_img.png'
 import {logout} from '../../data/auth'
+import SearchModal from "./SearchModal";
+
 
 
 
 const Topbar = () => {
   const [open, setOpen] = useState(false);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   // Close dropdown when clicking outside
@@ -91,7 +94,7 @@ const Topbar = () => {
 
             {/* Search (md+) */}
             <div className="hidden md:block flex-1 max-w-sm">
-              <SearchInput />
+              <SearchInput onOpen={() => setSearchModalOpen(true)} />
             </div>
 
             {/* Right */}
@@ -99,7 +102,7 @@ const Topbar = () => {
               {/* Mobile Search Toggle */}
               <motion.button
                 type="button"
-                onClick={() => setMobileSearchOpen((v) => !v)}
+                onClick={() => setSearchModalOpen(true)}
                 whileTap={{ scale: 0.96 }}
                 className="md:hidden inline-flex items-center justify-center rounded-full border px-3 py-2 text-gray-700 hover:bg-gray-50"
                 aria-label="Toggle search"
@@ -179,11 +182,11 @@ const Topbar = () => {
             </div>
 
                       
-                    </div>
-                  </div>
+            </div>
+          </div>
 
                   {/* Mobile Search Row */}
-                  <AnimatePresence initial={false}>
+                  {/* <AnimatePresence initial={false}>
                     {mobileSearchOpen && (
                       <motion.div
                         key="mobile-search"
@@ -193,11 +196,11 @@ const Topbar = () => {
                         transition={{ duration: 0.25, ease: "easeOut" }}
                         className="md:hidden overflow-hidden pb-3"
                       >
-                        <SearchInput />
+                        <SearchInput onOpen={()=>setSearchModalOpen(true)} />
                       </motion.div>
                     )}
-                  </AnimatePresence>
-                </div>
+                  </AnimatePresence> */}
+        </div>
               </motion.nav>
 
               {/* Mobile Menu Drawer */}
@@ -264,20 +267,31 @@ const Topbar = () => {
                   </>
                 )}
               </AnimatePresence>
+              <SearchModal
+              open={searchModalOpen}
+              onClose={() => setSearchModalOpen(false)}
+            />
     </>
   );
 };
 
-          function SearchInput() {
-            return (
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <input
-                  placeholder="Search eBooks..."
-                  className="w-full pl-9 pr-3 py-2 rounded-full border text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-            );
-          }
+  function SearchInput({ onOpen }) {
+    return (
+      <div
+        onClick={onOpen}
+        className="relative cursor-pointer"
+      >
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+        <input
+          readOnly
+          placeholder="Search eBooks..."
+          className="w-full pl-9 pr-3 py-2 rounded-full border text-sm
+                    cursor-pointer bg-white
+                    focus:outline-none"
+        />
+      </div>
+    );
+  }
+
 
 export default Topbar;
