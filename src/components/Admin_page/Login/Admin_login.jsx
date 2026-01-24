@@ -135,6 +135,12 @@ const admin_login = () => {
                 >
                   Login
                 </button>
+                <div>
+                  User: user@gmail.com , password:user123
+                </div>
+                <div>
+                   Admin: admin@gmail.com , password:admin123
+                </div>
             </form>
 
           </div>
